@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "bmi.calculator"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "bmi.calculator"
