@@ -4,42 +4,49 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Button
+import android.widget.TextView
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var weightInput: EditText
     private lateinit var heightInput: EditText
+    private lateinit var resultTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Assuming IDs of EditText fields in your layout are weight_input and height_input
         weightInput = findViewById(R.id.weight_input)
         heightInput = findViewById(R.id.height_input)
+        resultTextView = findViewById(R.id.result_text) // Dodany TextView do wyświetlenia wyniku
 
-        val calculateButton = findViewById<Button>(R.id.calculate_button)
+        val calculateButton: Button = findViewById(R.id.calculate_button)
         calculateButton.setOnClickListener {
-            calculateBMI()
+            val weightString = weightInput.text.toString()
+            val heightString = heightInput.text.toString()
+
+            if (weightString.isNotEmpty() && heightString.isNotEmpty()) {
+                try {
+                    val weight = weightString.toDouble()
+                    val height = heightString.toDouble()
+
+                    if (weight > 0 && height > 0) {
+                        val bmi = calculateBMI(weight, height)
+                        resultTextView.text = String.format("BMI: %.2f", bmi)
+                    } else {
+                        resultTextView.text = "Waga i wzrost muszą być większe od zera."
+                    }
+                } catch (e: NumberFormatException) {
+                    resultTextView.text = "Wprowadzono nieprawidłowe dane."
+                }
+            } else {
+                resultTextView.text = "Wprowadź wagę i wzrost."
+            }
         }
     }
 
-    private fun calculateBMI() {
-        val weightString = weightInput.text.toString()
-        val heightString = heightInput.text.toString()
-
-        if (weightString.isNotEmpty() && heightString.isNotEmpty()) {
-            val weight = weightString.toDouble()
-            val height = heightString.toDouble() / 100 // convert height to meters (assuming input is in centimeters)
-
-            val bmi = calculateBMIValue(weight, height)
-            // Perform action with the calculated BMI, like displaying it or using it further.
-            // Example: Toast.makeText(this, "Your BMI is $bmi", Toast.LENGTH_SHORT).show()
-        } else {
-            // Handle empty input cases, show an error message, etc.
-        }
-    }
-
-    private fun calculateBMIValue(weight: Double, height: Double): Double {
-        return weight / (height * height)
+    private fun calculateBMI(weight: Double, height: Double): Double {
+        val heightInMeters = height / 100
+        return weight / (heightInMeters * heightInMeters)
     }
 }
