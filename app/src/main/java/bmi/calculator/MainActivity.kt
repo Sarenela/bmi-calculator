@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             if (isChecked) {
                 bmiViewModel = ImperialBMIViewModel() // Change to Imperial System
                 weightInput.hint = "Enter Weight (pounds)"
-                heightInput.hint = "Enter Height (feet)"
+                heightInput.hint = "Enter Height (inches)"
             } else {
                 bmiViewModel = MetricBMIViewModel() // Change to Metric System
                 weightInput.hint = "Enter Weight (kg)"
