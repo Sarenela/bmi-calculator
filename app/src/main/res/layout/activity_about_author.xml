@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".AboutAuthorActivity">
 
+
+    <TextView
+        android:id="@+id/aboutAuthorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="106dp"
+        android:text="About Author"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/authorImage"
+        android:layout_width="267dp"
+        android:layout_height="256dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="100dp"
+        android:contentDescription="Haczuś uwu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutAuthorText"
+        tools:srcCompat="@drawable/hachi" />
+
+    <TextView
+        android:id="@+id/authorName"
+        android:layout_width="196dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="105dp"
+        android:fontFamily="monospace"
+        android:text="Sara Mac"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/authorDescriptionText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorImage"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/authorDescriptionText"
+        android:layout_width="314dp"
+        android:layout_height="234dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:fontFamily="monospace"
+        android:text="I'm a computer science student working at Zendesk as a Software Engineering Intern. I do improv. When I'm not coding or exploring tech, you'll often find me enjoying a delicious bubble tea. I believe in mixing bits and bubbles to create the perfect blend of fun and innovation. I am also a cat mother c:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
