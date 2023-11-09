@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "bmi.calculator"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -62,5 +62,6 @@ dependencies {
     testImplementation("androidx.lifecycle:lifecycle-runtime-testing:$lifecycle_version")
     implementation("androidx.activity:activity-ktx:$activity_version")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+    implementation ("com.google.code.gson:gson:2.8.8")
 
 }

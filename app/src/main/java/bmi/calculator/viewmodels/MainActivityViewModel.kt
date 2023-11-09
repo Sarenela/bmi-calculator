@@ -1,6 +1,8 @@
-package bmi.calculator
+package bmi.calculator.viewmodels
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
+import bmi.calculator.utils.BMICalculator
+import bmi.calculator.utils.BMICalculatorMetric
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,8 +18,8 @@ class MainActivityViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(BMIUiState())
     val uiState: StateFlow<BMIUiState> = _uiState.asStateFlow()
 
-    fun updateBMISystem(bmiSystem:BMICalculator){
-        _uiState.update { currentState:BMIUiState ->
+    fun updateBMISystem(bmiSystem: BMICalculator){
+        _uiState.update { currentState: BMIUiState ->
             currentState.copy(
                 bmiCalculator = bmiSystem
             )
@@ -27,13 +29,18 @@ class MainActivityViewModel : ViewModel() {
     fun calculateBMI(weight: Double, height: Double){
         var calculatedBmi =_uiState.value.bmiCalculator.calculateBMI(weight,height)
 
-        _uiState.update { currentState:BMIUiState ->
+        _uiState.update { currentState: BMIUiState ->
             currentState.copy(
                 bmi = calculatedBmi,
                 color = getColor(calculatedBmi),
                 category = getCategory(calculatedBmi),
             )
         }
+    }
+
+    fun getSystem():String{
+        if (_uiState.value.bmiCalculator is BMICalculatorMetric ) return "metric"
+        else return "imperial"
     }
 
     fun getCategory(bmi: Double): String {

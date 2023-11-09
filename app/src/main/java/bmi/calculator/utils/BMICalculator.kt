@@ -1,5 +1,4 @@
-package bmi.calculator
-import android.graphics.Color
+package bmi.calculator.utils
 
 
 abstract class BMICalculator {

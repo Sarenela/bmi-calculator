@@ -1,5 +1,6 @@
 package bmi.calculator
-
+import BMIMeasurement
+import HistoryViewModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,16 +8,22 @@ import android.widget.EditText
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import bmi.calculator.utils.BMICalculatorImperial
+import bmi.calculator.utils.BMICalculatorMetric
+import bmi.calculator.viewmodels.BMIUiState
+import bmi.calculator.viewmodels.MainActivityViewModel
+
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,8 +41,11 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
 
+                    val historyViewModel: HistoryViewModel by viewModels()
 
-                    onButtonClickCalculateBMI(viewModel)
+
+
+                    onButtonClickCalculateBMI(viewModel,historyViewModel)
                     updateUI(uiState)
                     onClickChangeSystem(viewModel)
 
@@ -65,12 +75,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun onButtonClickCalculateBMI(viewModel: MainActivityViewModel){
+    private fun onButtonClickCalculateBMI(viewModel: MainActivityViewModel, historyViewModel: HistoryViewModel){
         val calculateButton: Button = findViewById(R.id.calculate_button)
+
         calculateButton.setOnClickListener {
-            val measurements = retrieveMeasurements()
-            if (measurements != null) {
-                viewModel.calculateBMI(measurements.first,measurements.second)
+            val weightHeight = retrieveWeightHeight()
+            if (weightHeight != null) {
+                viewModel.calculateBMI(weightHeight.first,weightHeight.second)
+                 val measurement = createMeasurement(viewModel, weightHeight.first, weightHeight.second)
+                onCalculateAddToHistory(historyViewModel,measurement)
             }
         }
     }
@@ -96,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun retrieveMeasurements() :Pair<Double, Double>?{
+    private fun retrieveWeightHeight() :Pair<Double, Double>?{
         val weightInput = findViewById<EditText>(R.id.weight_input)
         val heightInput = findViewById<EditText>(R.id.height_input)
 
@@ -138,14 +151,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun openHistory(){
-//        val history = Intent(this,
-//            HistoryActivity::class.java)
-//
-//        startActivity(history)
-//    }
+    private fun onClickOpenHistory(){
+        startActivity( Intent(this, HistoryActivity::class.java))
+    }
 
-    private fun openAboutAuthor(){
+    private fun onClickOpenAboutAuthor(){
         startActivity(Intent(this, AboutAuthorActivity::class.java))
     }
 
@@ -161,16 +171,26 @@ class MainActivity : AppCompatActivity() {
 //        startActivity(description)
 //
 //    }
+
+    private fun createMeasurement( mainActivityViewModel: MainActivityViewModel, weight:Double, height:Double): BMIMeasurement{
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val date = LocalDateTime.now().format(dateFormat)
+        val bmi = mainActivityViewModel.uiState.value.bmi
+        return BMIMeasurement(date,weight,height, bmi!!,mainActivityViewModel.getSystem())
+    }
+    private fun onCalculateAddToHistory(historyViewModel: HistoryViewModel, measurement:BMIMeasurement ){
+        historyViewModel.addMeasurement(measurement,this )
+    }
     private fun onClickMenuOption() {
         val navView = findViewById<NavigationView>(R.id.nav_view)
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.history_option -> {
-                    //openHistory()
+                    onClickOpenHistory()
                 }
                 R.id.about_author_option -> {
-                    openAboutAuthor()
+                    onClickOpenAboutAuthor()
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)

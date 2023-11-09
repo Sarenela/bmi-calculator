@@ -2,11 +2,11 @@ package bmi.calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import bmi.calculator.viewmodels.BmiDescriptionViewModel
 import kotlinx.coroutines.launch
 
 class BMIDescriptionActivity : AppCompatActivity() {

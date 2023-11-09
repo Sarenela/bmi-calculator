@@ -1,4 +1,4 @@
-package bmi.calculator
+package bmi.calculator.viewmodels
 
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -17,7 +17,7 @@ class BmiDescriptionViewModel: ViewModel() {
     val uiState: StateFlow<BMIDescriptionUiState> = _uiState.asStateFlow()
 
     fun updateDescription(){
-        _uiState.update { currentState:BMIDescriptionUiState ->
+        _uiState.update { currentState: BMIDescriptionUiState ->
             currentState.copy(
                 description = getDescription()
             )
@@ -25,7 +25,7 @@ class BmiDescriptionViewModel: ViewModel() {
     }
 
     fun updateState(bmiCategory: String, bmiColor: Int){
-        _uiState.update { currentState:BMIDescriptionUiState ->
+        _uiState.update { currentState: BMIDescriptionUiState ->
             currentState.copy(
                 category = bmiCategory,
                 color = bmiColor,
