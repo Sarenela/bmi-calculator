@@ -1,4 +1,4 @@
-package bmi.calculator
+package bmi.calculator.utils
 
 import BMIMeasurement
 import androidx.recyclerview.widget.DiffUtil

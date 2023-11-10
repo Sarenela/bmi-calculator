@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import bmi.calculator.R
+import bmi.calculator.utils.HistoryDiffCallback
 
 class HistoryAdapter:
     ListAdapter<BMIMeasurement, HistoryAdapter.MeasurementViewHolder>(HistoryDiffCallback()) {
