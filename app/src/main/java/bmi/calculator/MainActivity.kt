@@ -17,11 +17,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import bmi.calculator.utils.BMICalculatorImperial
 import bmi.calculator.utils.BMICalculatorMetric
 import bmi.calculator.viewmodels.BMIUiState
+import bmi.calculator.viewmodels.BmiDescriptionViewModel
 import bmi.calculator.viewmodels.MainActivityViewModel
 
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.uiState.collect { uiState ->
 
                     val historyViewModel: HistoryViewModel by viewModels()
+                    val bmiDescriptionViewModel: BmiDescriptionViewModel by viewModels()
 
 
 
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
                     burgerMenu()
                     onClickMenuOption()
-
+                    onClickOpenDescription()
 
 
                     // Update UI elements
@@ -94,18 +95,23 @@ class MainActivity : AppCompatActivity() {
         val switchSystemButton= findViewById<ToggleButton>(R.id.switch_system_button)
 
         switchSystemButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            if (isChecked  && viewModel.uiState.value.bmiCalculator is BMICalculatorMetric) {
                viewModel.updateBMISystem(BMICalculatorImperial())
                 weightInput.hint = "Enter Weight (pounds)"
                 heightInput.hint = "Enter Height (inches)"
-            } else {
+                weightInput.text.clear()
+                heightInput.text.clear()
+
+            }
+            else  if( !isChecked && viewModel.uiState.value.bmiCalculator is BMICalculatorImperial) {
+
                 viewModel.updateBMISystem(BMICalculatorMetric())
                 weightInput.hint = "Enter Weight (kg)"
                 heightInput.hint = "Enter Height (cm)"
+                weightInput.text.clear()
+                heightInput.text.clear()
             }
-            weightInput.text.clear()
-            heightInput.text.clear()
-        /// clear bmi
+
         }
     }
 
@@ -158,19 +164,25 @@ class MainActivity : AppCompatActivity() {
     private fun onClickOpenAboutAuthor(){
         startActivity(Intent(this, AboutAuthorActivity::class.java))
     }
+    private fun onClickOpenDescription(){
+        val categoryTextView: TextView = findViewById(R.id.result_category)
 
-//    private fun openDescription(){
-//        val description = Intent(this,
-//            BMIDescriptionActivity::class.java)
-//
-//        val resultCategoryText = findViewById<TextView>(R.id.categoryText)
-//        val color = resultCategoryText.currentTextColor
-//
-//        description.putExtra("category", resultCategoryText.text)
-//        description.putExtra("color", color)
-//        startActivity(description)
-//
-//    }
+        categoryTextView.setOnClickListener {
+            startActivity(createDescription())
+        }
+    }
+
+   private fun createDescription(): Intent{
+        val description = Intent(this,
+            BMIDescriptionActivity::class.java)
+
+        val resultCategoryText = findViewById<TextView>(R.id.result_category)
+        val color = resultCategoryText.currentTextColor
+
+        description.putExtra("category", resultCategoryText.text)
+        description.putExtra("color", color)
+        return description
+    }
 
     private fun createMeasurement( mainActivityViewModel: MainActivityViewModel, weight:Double, height:Double): BMIMeasurement{
         val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")

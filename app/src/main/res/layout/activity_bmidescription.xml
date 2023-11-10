@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/bmiTitleText"
-        android:layout_width="246dp"
-        android:layout_height="67dp"
+        android:layout_width="314dp"
+        android:layout_height="62dp"
         android:layout_marginTop="132dp"
         android:text="TextView"
         android:textAlignment="center"
@@ -20,11 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/BMIDescritpionText"
+        android:id="@+id/bmiDescritpionText"
         android:layout_width="266dp"
         android:layout_height="325dp"
         android:layout_marginTop="76dp"
         android:text="TextView"
+        android:textSize="18dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
