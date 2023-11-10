@@ -2,6 +2,7 @@ package bmi.calculator
 import BMIMeasurement
 import HistoryViewModel
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -19,7 +20,6 @@ import bmi.calculator.utils.BMICalculatorMetric
 import bmi.calculator.viewmodels.BMIUiState
 import bmi.calculator.viewmodels.BmiDescriptionViewModel
 import bmi.calculator.viewmodels.MainActivityViewModel
-
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val viewModel: MainActivityViewModel by viewModels()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -43,8 +42,6 @@ class MainActivity : AppCompatActivity() {
 
                     val historyViewModel: HistoryViewModel by viewModels()
                     val bmiDescriptionViewModel: BmiDescriptionViewModel by viewModels()
-
-
 
                     onButtonClickCalculateBMI(viewModel,historyViewModel)
                     updateUI(uiState)
@@ -54,8 +51,6 @@ class MainActivity : AppCompatActivity() {
                     onClickMenuOption()
                     onClickOpenDescription()
 
-
-                    // Update UI elements
                 }
             }
         }
@@ -66,18 +61,16 @@ class MainActivity : AppCompatActivity() {
         val resultCategoryTextView = findViewById<TextView>(R.id.result_category)
 
         if(uiState.bmi!= null ) {
-            resultValueTextView.text = "BMI: ${uiState.bmi}"
+            resultValueTextView.text =  "BMI: ${String.format("%.2f", uiState.bmi)}"
             resultValueTextView.setTextColor(uiState.color)
             resultCategoryTextView.setTextColor(uiState.color)
             resultCategoryTextView.text = "${uiState.category}"
         }
-
-        // Update other UI components accordingly
     }
-
 
     private fun onButtonClickCalculateBMI(viewModel: MainActivityViewModel, historyViewModel: HistoryViewModel){
         val calculateButton: Button = findViewById(R.id.calculate_button)
+        val warningField:TextView = findViewById(R.id.warning)
 
         calculateButton.setOnClickListener {
             val weightHeight = retrieveWeightHeight()
@@ -85,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.calculateBMI(weightHeight.first,weightHeight.second)
                  val measurement = createMeasurement(viewModel, weightHeight.first, weightHeight.second)
                 onCalculateAddToHistory(historyViewModel,measurement)
+                warningField.text = ""
             }
         }
     }
@@ -97,24 +91,21 @@ class MainActivity : AppCompatActivity() {
         switchSystemButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked  && viewModel.uiState.value.bmiCalculator is BMICalculatorMetric) {
                viewModel.updateBMISystem(BMICalculatorImperial())
-                weightInput.hint = "Enter Weight (pounds)"
-                heightInput.hint = "Enter Height (inches)"
+                weightInput.hint = "Enter Weight (lb)"
+                heightInput.hint = "Enter Height (in)"
                 weightInput.text.clear()
                 heightInput.text.clear()
 
             }
             else  if( !isChecked && viewModel.uiState.value.bmiCalculator is BMICalculatorImperial) {
-
                 viewModel.updateBMISystem(BMICalculatorMetric())
                 weightInput.hint = "Enter Weight (kg)"
                 heightInput.hint = "Enter Height (cm)"
                 weightInput.text.clear()
                 heightInput.text.clear()
             }
-
         }
     }
-
     private fun retrieveWeightHeight() :Pair<Double, Double>?{
         val weightInput = findViewById<EditText>(R.id.weight_input)
         val heightInput = findViewById<EditText>(R.id.height_input)
@@ -127,19 +118,14 @@ class MainActivity : AppCompatActivity() {
                 val weight = weightString.toDouble()
                 val height = heightString.toDouble()
 
-                // Check if weight and height are positive
-                if (weight > 0 && height > 0) {
-                    return Pair(weight,height)
-
-                } else {
-                    // Weight or height is not positive
-                    // Handle the case when weight or height is not positive (e.g., show an error message)
-                }
-            } catch (e: NumberFormatException) {
-                // Handle the case when the input is not a valid number
-                // For example, weight or height contains invalid characters
-            }
-        } //else nothing
+                return Pair(weight,height)
+            } catch (e: NumberFormatException) {}
+        }
+        else{
+            val warningField = findViewById<TextView>(R.id.warning)
+            warningField.text= "Please put in weight and height values"
+            warningField.setTextColor(Color.RED)
+        }
         return null
     }
 
@@ -160,7 +146,6 @@ class MainActivity : AppCompatActivity() {
     private fun onClickOpenHistory(){
         startActivity( Intent(this, HistoryActivity::class.java))
     }
-
     private fun onClickOpenAboutAuthor(){
         startActivity(Intent(this, AboutAuthorActivity::class.java))
     }
@@ -209,6 +194,4 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-
-
 }
