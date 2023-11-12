@@ -1,4 +1,4 @@
-package bmi.calculator
+package bmi.calculator.utils
 
 
 import HistoryViewModel
@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import bmi.calculator.HistoryAdapter
 import bmi.calculator.R
 
 

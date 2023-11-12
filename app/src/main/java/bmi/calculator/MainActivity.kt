@@ -1,12 +1,10 @@
 package bmi.calculator
 import BMIMeasurement
 import HistoryViewModel
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.Button
 import android.widget.TextView
@@ -19,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import bmi.calculator.utils.BMICalculatorImperial
 import bmi.calculator.utils.BMICalculatorMetric
+import bmi.calculator.utils.HistoryActivity
 import bmi.calculator.viewmodels.BMIUiState
 import bmi.calculator.viewmodels.BmiDescriptionViewModel
 import bmi.calculator.viewmodels.MainActivityViewModel
@@ -68,8 +67,27 @@ class MainActivity : AppCompatActivity() {
             resultCategoryTextView.setTextColor(uiState.color)
             resultCategoryTextView.text = "${uiState.category}"
         }
+        updateSystemStrings(uiState)
     }
 
+    private fun updateSystemStrings(uiState: BMIUiState){
+        if (uiState.bmiCalculator is BMICalculatorMetric) changeInputStringsMetric()
+        else changeInputStringsImperial()
+    }
+
+    private fun changeInputStringsMetric(){
+        val weightInput = findViewById<EditText>(R.id.weight_input)
+        val heightInput = findViewById<EditText>(R.id.height_input)
+        weightInput.hint = getString(R.string.enter_weight_kg)
+        heightInput.hint = getString(R.string.enter_height_cm)
+    }
+
+    private fun changeInputStringsImperial(){
+        val weightInput = findViewById<EditText>(R.id.weight_input)
+        val heightInput = findViewById<EditText>(R.id.height_input)
+        weightInput.hint = getString(R.string.enter_weight_lb)
+        heightInput.hint = getString(R.string.enter_height_in)
+    }
     private fun onButtonClickCalculateBMI(viewModel: MainActivityViewModel, historyViewModel: HistoryViewModel){
         val calculateButton: Button = findViewById(R.id.calculate_button)
         val warningField:TextView = findViewById(R.id.warning)
@@ -98,17 +116,14 @@ class MainActivity : AppCompatActivity() {
         switchSystemButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked  && viewModel.uiState.value.bmiCalculator is BMICalculatorMetric) {
                viewModel.updateBMISystem(BMICalculatorImperial())
-                weightInput.hint = getString(R.string.enter_weight_lb)
-                heightInput.hint = getString(R.string.enter_height_in)
+                changeInputStringsImperial()
                 weightInput.text.clear()
                 heightInput.text.clear()
                 clearBMI()
-
             }
             else  if( !isChecked && viewModel.uiState.value.bmiCalculator is BMICalculatorImperial) {
                 viewModel.updateBMISystem(BMICalculatorMetric())
-                weightInput.hint = getString(R.string.enter_weight_kg)
-                heightInput.hint = getString(R.string.enter_height_cm)
+                changeInputStringsMetric()
                 weightInput.text.clear()
                 heightInput.text.clear()
                 clearBMI()

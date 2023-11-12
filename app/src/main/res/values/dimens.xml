@@ -63,7 +63,7 @@
     <dimen name="bmi_category_height">38dp</dimen>
     <dimen name="bmi_category_m_top">24dp</dimen>
     <dimen name="bmi_category_font_size">24sp</dimen>
-    <dimen name="system_button_width">85dp</dimen>
+    <dimen name="system_button_width">90dp</dimen>
     <dimen name="system_button_height">56dp</dimen>
     <dimen name="system_button_padding">8dp</dimen>
     <dimen name="system_button_font_size">16sp</dimen>
