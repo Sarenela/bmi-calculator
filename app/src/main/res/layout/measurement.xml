@@ -11,24 +11,24 @@
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date: "
+        android:text="@string/measurement_date"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/weightTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight: " />
+        android:text="@string/measurement_weight" />
 
     <TextView
         android:id="@+id/heightTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Height: " />
+        android:text="@string/measurement_height" />
 
     <TextView
         android:id="@+id/bmiTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BMI: " />
+        android:text="@string/measurement_bmi" />
 </LinearLayout>

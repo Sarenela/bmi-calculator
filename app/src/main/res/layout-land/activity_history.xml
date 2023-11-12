@@ -12,11 +12,11 @@
         tools:context=".HistoryActivity">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="212dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="36dp"
-            android:text="Recent BMIs"
+            android:id="@+id/historyTitle"
+            android:layout_width="@dimen/history_title_land_width"
+            android:layout_height="@dimen/history_title_land_height"
+            android:layout_marginTop="@dimen/history_title_land_m_top"
+            android:text="@string/history_title"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,16 +26,16 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/historyRecyclerView"
-            android:layout_width="585dp"
-            android:layout_height="563dp"
-            android:layout_marginTop="20dp"
-            android:padding="8dp"
+            android:layout_width="@dimen/history_view_land_width"
+            android:layout_height="@dimen/history_view_land_height"
+            android:layout_marginTop="@dimen/history_view_land_m_top"
+            android:padding="@dimen/history_view_land_padding"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/historyTitle"
             app:layout_constraintVertical_bias="0.2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

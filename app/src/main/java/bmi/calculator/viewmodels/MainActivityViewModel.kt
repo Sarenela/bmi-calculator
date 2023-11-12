@@ -1,6 +1,8 @@
 package bmi.calculator.viewmodels
+import android.content.Context
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
+import bmi.calculator.R
 import bmi.calculator.utils.BMICalculator
 import bmi.calculator.utils.BMICalculatorMetric
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,33 +28,34 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
-    fun calculateBMI(weight: Double, height: Double){
+    fun calculateBMI(weight: Double, height: Double, context: Context){
         var calculatedBmi =_uiState.value.bmiCalculator.calculateBMI(weight,height)
 
         _uiState.update { currentState: BMIUiState ->
             currentState.copy(
                 bmi = calculatedBmi,
                 color = getColor(calculatedBmi),
-                category = getCategory(calculatedBmi),
+                category = getCategory(calculatedBmi, context),
             )
         }
     }
 
-    fun getSystem():String{
-        if (_uiState.value.bmiCalculator is BMICalculatorMetric ) return "metric"
-        else return "imperial"
+
+    fun getSystem(context: Context):String{
+        if (_uiState.value.bmiCalculator is BMICalculatorMetric ) return context.getString(R.string.metric)
+        else return context.getString(R.string.imperial)
     }
 
-    fun getCategory(bmi: Double): String {
+    fun getCategory(bmi: Double, context:Context): String {
         var category =""
         when {
-            bmi < 18.5 -> category = "Underweight"
+            bmi < 18.5 -> category = context.getString(R.string.underweight)
 
-            bmi in 18.5..24.9 -> category = "Normal weight"
+            bmi in 18.5..24.9 -> category = context.getString(R.string.normal_weight)
 
-            bmi in 25.0..29.9 -> category = "Overweight"
+            bmi in 25.0..29.9 -> category = context.getString(R.string.overweight)
 
-            else -> category = "Obesity"
+            else -> category = context.getString(R.string.obesity)
         }
         return category
     }

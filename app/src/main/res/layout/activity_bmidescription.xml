@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/bmiTitleText"
-        android:layout_width="314dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="132dp"
-        android:text="TextView"
+        android:layout_width="@dimen/bmi_title_width"
+        android:layout_height="@dimen/bmi_title_height"
+        android:layout_marginTop="@dimen/bmi_title_m_top"
+        android:text="@string/empty_str"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,11 +21,11 @@
 
     <TextView
         android:id="@+id/bmiDescritpionText"
-        android:layout_width="266dp"
-        android:layout_height="325dp"
-        android:layout_marginTop="76dp"
-        android:text="TextView"
-        android:textSize="18dp"
+        android:layout_width="@dimen/bmi_desc_width"
+        android:layout_height="@dimen/bmi_desc_height"
+        android:layout_marginTop="@dimen/bmi_desc_m_top"
+        android:text="@string/empty_str"
+        android:textSize="@dimen/bmi_desc_font_size"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

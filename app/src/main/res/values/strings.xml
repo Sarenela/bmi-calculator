@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">BMI</string>
+    <string name="about_author">About Author</string>
+    <string name="enter_weight_lb">Enter Weight (lb)</string>
+    <string name="enter_height_in">Enter Height (in)</string>
+    <string name="enter_weight_kg">Enter Weight (kg)</string>
+    <string name="enter_height_cm">Enter Height (cm)</string>
+    <string name="date_format">yyyy-MM-dd HH:mm</string>
+    <string name="empty_str" />
+    <string name="warning">Please put in weight and height values</string>
+    <string name="bmi">BMI: %1$s</string>
+    <string name="bmi_format">%.2f</string>
+    <string name="author">Sara Mac</string>
+    <string name="author_description">I\'m a computer science student working at Zendesk as a Software Engineering Intern. I do improv. When I\'m not coding or exploring tech, you\'ll often find me enjoying a delicious bubble tea. I believe in mixing bits and bubbles to create the perfect blend of fun and innovation. I am also a cat mother c:</string>
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
+    <string name="menu_title">Menu</string>
+    <string name="calculate_bmi_button">Calculate BMI</string>
+    <string name="main_title">BMI CALCULATOR!!!</string>
+    <string name="history_title">Recent BMIs</string>
+    <string name="measurement_date">Date:</string>
+    <string name="measurement_weight">Weight:</string>
+    <string name="measurement_height">Height:</string>
+    <string name="measurement_bmi">BMI:</string>
+    <string name="category">category</string>
+    <string name="color">color</string>
+    <string name="underweight">Underweight</string>
+    <string name="normal_weight">Normal weight</string>
+    <string name="overweight">Overweight</string>
+    <string name="obesity">Obesity</string>
+    <string name="history">history</string>
+    <string name="underweight_description">Individuals with a BMI below 18.5 are considered underweight. This category may indicate potential health risks such as nutrient deficiencies, a weakened immune system, or other health issues.</string>
+    <string name="normal_weight_description">Falling within this range is considered to be a healthy weight. It suggests a balanced proportion between weight and height, associated with a lower risk of weight-related health problems.</string>
+    <string name="overweight_description">Individuals with a BMI in this range are considered overweight. This category indicates an excess of body weight compared to height and may predispose individuals to health issues like heart disease, diabetes, and other weight-related problems.</string>
+    <string name="obese_description">This category indicates an excessive amount of body fat, posing a higher risk for various health conditions, including diabetes, high blood pressure, heart disease, certain cancers, and other obesity-related complications.</string>
 </resources>

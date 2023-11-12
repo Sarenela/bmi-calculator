@@ -17,10 +17,10 @@ class BMIDescriptionActivity : AppCompatActivity() {
         val categoryTextView = findViewById<TextView>(R.id.bmiTitleText)
         val descriptionTextView = findViewById<TextView>(R.id.bmiDescritpionText)
 
-        val color = intent.getIntExtra("color",0)
-        categoryTextView.text = intent.getStringExtra("category")
+        val color = intent.getIntExtra(getString(R.string.color),0)
+        categoryTextView.text = intent.getStringExtra(getString(R.string.category))
         categoryTextView.setTextColor(color)
-        bmiViewModel.updateState(intent.getStringExtra("category")!!,color)
+        bmiViewModel.updateState(intent.getStringExtra(getString(R.string.category))!!,color,this)
         descriptionTextView.text = bmiViewModel.description
 
     }

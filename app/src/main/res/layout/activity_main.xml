@@ -20,7 +20,7 @@
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BMI CALCULATOR!!!"
+        android:text="@string/main_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,10 +31,10 @@
 
     <EditText
         android:id="@+id/weight_input"
-        android:layout_width="413dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="52dp"
-        android:hint="Enter Weight (kg)"
+        android:layout_width="@dimen/input_width"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="@dimen/weight_input_m_top"
+        android:hint="@string/enter_weight_kg"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -44,10 +44,10 @@
 
     <EditText
         android:id="@+id/height_input"
-        android:layout_width="410dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="24dp"
-        android:hint="Enter Height (cm)"
+        android:layout_width="@dimen/input_width"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="@dimen/height_input_m_top"
+        android:hint="@string/enter_height_cm"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -56,10 +56,10 @@
 
     <Button
         android:id="@+id/calculate_button"
-        android:layout_width="172dp"
-        android:layout_height="63dp"
-        android:text="Calculate BMI"
-        android:textSize="18dp"
+        android:layout_width="@dimen/bmi_button_width"
+        android:layout_height="@dimen/bmi_button_height"
+        android:text="@string/calculate_bmi_button"
+        android:textSize="@dimen/bmi_button_font_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -69,37 +69,37 @@
 
     <TextView
         android:id="@+id/result_value"
-        android:layout_width="151dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="44dp"
-        android:text=""
+        android:layout_width="@dimen/bmi_result_width"
+        android:layout_height="@dimen/bmi_result_height"
+        android:layout_marginTop="@dimen/bmi_result_m_top"
+        android:text="@string/empty_str"
         android:textAlignment="center"
-        android:textSize="24dp"
+        android:textSize="@dimen/bmi_result_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calculate_button" />
 
     <TextView
         android:id="@+id/result_category"
-        android:layout_width="215dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="24dp"
-        android:text=""
+        android:layout_width="@dimen/bmi_category_width"
+        android:layout_height="@dimen/bmi_category_height"
+        android:layout_marginTop="@dimen/bmi_category_m_top"
+        android:text="@string/empty_str"
         android:textAlignment="center"
-        android:textSize="24dp"
+        android:textSize="@dimen/bmi_category_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result_value" />
 
     <ToggleButton
         android:id="@+id/switch_system_button"
-        android:layout_width="85dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/system_button_width"
+        android:layout_height="@dimen/system_button_height"
         android:checked="false"
-        android:padding="8dp"
-        android:textOff="Metric"
-        android:textOn="Imperial"
-        android:textSize="16sp"
+        android:padding="@dimen/system_button_padding"
+        android:textOff="@string/metric"
+        android:textOn="@string/imperial"
+        android:textSize="@dimen/system_button_font_size"
         app:layout_constraintBottom_toTopOf="@+id/main_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,10 +108,10 @@
 
     <Button
         android:id="@+id/burgerMenuButton"
-        android:layout_width="121dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
-        android:text="Menu"
+        android:layout_width="@dimen/menu_button_width"
+        android:layout_height="@dimen/menu_button_height"
+        android:layout_marginTop="@dimen/menu_button_m_top"
+        android:text="@string/menu_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
@@ -120,16 +120,16 @@
 
     <TextView
         android:id="@+id/warning"
-        android:layout_width="189dp"
-        android:layout_height="101dp"
-        android:text=""
+        android:layout_width="@dimen/warning_width"
+        android:layout_height="@dimen/warning_height"
+        android:text="@string/empty_str"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="@dimen/warning_font_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calculate_button"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintVertical_bias="0.257" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,12 @@
 package bmi.calculator
 import BMIMeasurement
 import HistoryViewModel
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Button
 import android.widget.TextView
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val resultCategoryTextView = findViewById<TextView>(R.id.result_category)
 
         if(uiState.bmi!= null ) {
-            resultValueTextView.text =  "BMI: ${String.format("%.2f", uiState.bmi)}"
+            resultValueTextView.text = getString(R.string.bmi, String.format(getString(R.string.bmi_format), uiState.bmi))
             resultValueTextView.setTextColor(uiState.color)
             resultCategoryTextView.setTextColor(uiState.color)
             resultCategoryTextView.text = "${uiState.category}"
@@ -75,10 +77,15 @@ class MainActivity : AppCompatActivity() {
         calculateButton.setOnClickListener {
             val weightHeight = retrieveWeightHeight()
             if (weightHeight != null) {
-                viewModel.calculateBMI(weightHeight.first,weightHeight.second)
+                viewModel.calculateBMI(weightHeight.first,weightHeight.second,this)
                  val measurement = createMeasurement(viewModel, weightHeight.first, weightHeight.second)
                 onCalculateAddToHistory(historyViewModel,measurement)
-                warningField.text = ""
+                warningField.text = getString(R.string.empty_str)
+            }
+            else{
+                clearBMI()
+                warningField.text= getString(R.string.warning)
+                warningField.setTextColor(Color.RED)
             }
         }
     }
@@ -91,40 +98,38 @@ class MainActivity : AppCompatActivity() {
         switchSystemButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked  && viewModel.uiState.value.bmiCalculator is BMICalculatorMetric) {
                viewModel.updateBMISystem(BMICalculatorImperial())
-                weightInput.hint = "Enter Weight (lb)"
-                heightInput.hint = "Enter Height (in)"
+                weightInput.hint = getString(R.string.enter_weight_lb)
+                heightInput.hint = getString(R.string.enter_height_in)
                 weightInput.text.clear()
                 heightInput.text.clear()
+                clearBMI()
 
             }
             else  if( !isChecked && viewModel.uiState.value.bmiCalculator is BMICalculatorImperial) {
                 viewModel.updateBMISystem(BMICalculatorMetric())
-                weightInput.hint = "Enter Weight (kg)"
-                heightInput.hint = "Enter Height (cm)"
+                weightInput.hint = getString(R.string.enter_weight_kg)
+                heightInput.hint = getString(R.string.enter_height_cm)
                 weightInput.text.clear()
                 heightInput.text.clear()
+                clearBMI()
             }
         }
     }
     private fun retrieveWeightHeight() :Pair<Double, Double>?{
         val weightInput = findViewById<EditText>(R.id.weight_input)
         val heightInput = findViewById<EditText>(R.id.height_input)
-
+        val warningField = findViewById<TextView>(R.id.warning)
         val weightString = weightInput.text.toString()
         val heightString = heightInput.text.toString()
 
         if (weightString.isNotEmpty() && heightString.isNotEmpty())  {
             try {
+                warningField.text = getString(R.string.empty_str)
                 val weight = weightString.toDouble()
                 val height = heightString.toDouble()
 
-                return Pair(weight,height)
+                if(weight!= 0.0 && height!=0.0)return Pair(weight,height)
             } catch (e: NumberFormatException) {}
-        }
-        else{
-            val warningField = findViewById<TextView>(R.id.warning)
-            warningField.text= "Please put in weight and height values"
-            warningField.setTextColor(Color.RED)
         }
         return null
     }
@@ -164,16 +169,16 @@ class MainActivity : AppCompatActivity() {
         val resultCategoryText = findViewById<TextView>(R.id.result_category)
         val color = resultCategoryText.currentTextColor
 
-        description.putExtra("category", resultCategoryText.text)
-        description.putExtra("color", color)
+        description.putExtra(getString(R.string.category), resultCategoryText.text)
+        description.putExtra(getString(R.string.color), color)
         return description
     }
 
     private fun createMeasurement( mainActivityViewModel: MainActivityViewModel, weight:Double, height:Double): BMIMeasurement{
-        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         val date = LocalDateTime.now().format(dateFormat)
         val bmi = mainActivityViewModel.uiState.value.bmi
-        return BMIMeasurement(date,weight,height, bmi!!,mainActivityViewModel.getSystem())
+        return BMIMeasurement(date,weight,height, bmi!!,mainActivityViewModel.getSystem(this))
     }
     private fun onCalculateAddToHistory(historyViewModel: HistoryViewModel, measurement:BMIMeasurement ){
         historyViewModel.addMeasurement(measurement,this )
@@ -194,4 +199,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
+    private fun clearBMI(){
+        val bmiTextViews = findViewById<TextView>(R.id.result_value)
+        val category = findViewById<TextView>(R.id.result_category)
+
+        bmiTextViews.text= getString(R.string.empty_str)
+            category.text= getString(R.string.empty_str)
+    }
 }
+

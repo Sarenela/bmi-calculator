@@ -2,6 +2,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import bmi.calculator.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -35,12 +36,12 @@ class HistoryViewModel : ViewModel() {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val history = historyList.value
         val historyJson = Gson().toJson(history)
-        prefs.edit().putString("history", historyJson).apply()
+        prefs.edit().putString(context.getString(R.string.history), historyJson).apply()
     }
 
     fun loadHistoryFromSharedPreferences(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val historyJson = prefs.getString("history", null)
+        val historyJson = prefs.getString(context.getString(R.string.history), null)
         if (historyJson != null) {
             val history = Gson().fromJson<List<BMIMeasurement>>(historyJson, object : TypeToken<List<BMIMeasurement>>() {}.type)
             _historyList.value = history
