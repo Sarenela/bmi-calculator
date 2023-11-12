@@ -96,39 +96,44 @@ class MainActivity : AppCompatActivity() {
             val weightHeight = retrieveWeightHeight()
             if (weightHeight != null) {
                 viewModel.calculateBMI(weightHeight.first,weightHeight.second,this)
-                 val measurement = createMeasurement(viewModel, weightHeight.first, weightHeight.second)
+                val measurement = createMeasurement(viewModel, weightHeight.first, weightHeight.second)
                 onCalculateAddToHistory(historyViewModel,measurement)
                 warningField.text = getString(R.string.empty_str)
             }
-            else{
-                clearBMI()
-                warningField.text= getString(R.string.warning)
-                warningField.setTextColor(Color.RED)
-            }
+            else  showWarning()
         }
     }
 
+    private fun showWarning(){
+        val warningField:TextView = findViewById(R.id.warning)
+        clearBMI()
+        warningField.text= getString(R.string.warning)
+        warningField.setTextColor(Color.RED)
+    }
+
     private fun onClickChangeSystem(viewModel: MainActivityViewModel) {
-        val weightInput = findViewById<EditText>(R.id.weight_input)
-        val heightInput = findViewById<EditText>(R.id.height_input)
         val switchSystemButton= findViewById<ToggleButton>(R.id.switch_system_button)
 
         switchSystemButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked  && viewModel.uiState.value.bmiCalculator is BMICalculatorMetric) {
                viewModel.updateBMISystem(BMICalculatorImperial())
                 changeInputStringsImperial()
-                weightInput.text.clear()
-                heightInput.text.clear()
-                clearBMI()
+                clearStrings()
             }
             else  if( !isChecked && viewModel.uiState.value.bmiCalculator is BMICalculatorImperial) {
                 viewModel.updateBMISystem(BMICalculatorMetric())
                 changeInputStringsMetric()
-                weightInput.text.clear()
-                heightInput.text.clear()
-                clearBMI()
+                clearStrings()
             }
         }
+    }
+
+    private fun clearStrings(){
+        val weightInput = findViewById<EditText>(R.id.weight_input)
+        val heightInput = findViewById<EditText>(R.id.height_input)
+        weightInput.text.clear()
+        heightInput.text.clear()
+        clearBMI()
     }
     private fun retrieveWeightHeight() :Pair<Double, Double>?{
         val weightInput = findViewById<EditText>(R.id.weight_input)
