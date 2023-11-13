@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bmi_title_land_m_top"
+            android:text="@string/main_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/weight_input"
+            android:layout_width="@dimen/input_land_width"
+            android:layout_height="@dimen/input_land_height"
+            android:layout_marginTop="@dimen/weight_input_land_m_top"
+            android:hint="@string/enter_weight_kg"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.099"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_title" />
+
+        <EditText
+            android:id="@+id/height_input"
+            android:layout_width="@dimen/input_land_width"
+            android:layout_height="@dimen/input_land_height"
+            android:layout_marginTop="@dimen/height_input_land_m_top"
+            android:hint="@string/enter_height_cm"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.098"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weight_input" />
+
+        <Button
+            android:id="@+id/calculate_button"
+            android:layout_width="@dimen/bmi_land_button_width"
+            android:layout_height="@dimen/bmi_land_button_height"
+            android:text="@string/calculate_bmi_button"
+            android:textSize="@dimen/bmi_land_button_font_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.23"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/height_input"
+            app:layout_constraintVertical_bias="0.349" />
+
+        <TextView
+            android:id="@+id/result_value"
+            android:layout_width="@dimen/bmi_result_land_width"
+            android:layout_height="@dimen/bmi_result_land_height"
+            android:layout_marginTop="@dimen/bmi_result_land_m_top"
+            android:text="@string/empty_str"
+            android:textSize="@dimen/bmi_result_land_font_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/weight_input"
+            app:layout_constraintTop_toBottomOf="@+id/burgerMenuButton" />
+
+        <TextView
+            android:id="@+id/result_category"
+            android:layout_width="@dimen/bmi_category_land_width"
+            android:layout_height="@dimen/bmi_category_land_height"
+            android:layout_marginTop="@dimen/bmi_category_land_m_top"
+            android:text="@string/empty_str"
+            android:textSize="@dimen/bmi_category_land_font_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toEndOf="@+id/height_input"
+            app:layout_constraintTop_toBottomOf="@+id/result_value"
+            app:layout_constraintVertical_bias="0.076" />
+
+        <ToggleButton
+            android:id="@+id/switch_system_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/system_button_land_m_top"
+            android:checked="false"
+            android:padding="@dimen/system_button_land_padding"
+            android:textOff="@string/metric"
+            android:textOn="@string/imperial"
+            android:textSize="@dimen/system_button_land_font_size"
+            app:layout_constraintEnd_toStartOf="@+id/burgerMenuButton"
+            app:layout_constraintHorizontal_bias="0.607"
+            app:layout_constraintStart_toEndOf="@+id/main_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/warning"
+            android:layout_width="@dimen/warning_land_width"
+            android:layout_height="@dimen/warning_land_height"
+            android:text="@string/empty_str"
+            android:textAlignment="center"
+            android:textSize="@dimen/warning_land_font_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toEndOf="@+id/height_input"
+            app:layout_constraintTop_toBottomOf="@+id/burgerMenuButton"
+            app:layout_constraintVertical_bias="0.292" />
+
+        <Button
+            android:id="@+id/burgerMenuButton"
+            android:layout_width="@dimen/menu_button_width"
+            android:layout_height="@dimen/menu_button_height"
+            android:layout_marginTop="@dimen/menu_button_land_m_top"
+            android:text="@string/menu_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.934"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/drawer_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

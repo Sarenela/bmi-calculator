@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutAuthorActivity">
+
+
+    <TextView
+        android:id="@+id/aboutAuthorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/author_title_m_top_land"
+        android:text="@string/about_author"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/authorName"
+        android:layout_width="@dimen/authorname_width_land"
+        android:layout_height="@dimen/authorname_height_land"
+        android:layout_marginTop="@dimen/authorname_m_top_land"
+        android:fontFamily="monospace"
+        android:text="@string/author"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutAuthorText" />
+
+    <TextView
+        android:id="@+id/authorDescriptionText"
+        android:layout_width="@dimen/author_desc_width_land"
+        android:layout_height="@dimen/author_desc_height_land"
+        android:layout_marginTop="@dimen/author_desc_m_top_land"
+        android:fontFamily="monospace"
+        android:text="@string/author_description"
+        android:textAlignment="center"
+        android:textSize="@dimen/author_description_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/author_image_width_land"
+        android:layout_height="@dimen/author_image_height_length"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hachi" />
+</androidx.constraintlayout.widget.ConstraintLayout>
